@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 下面的一坨是一些XML的一些规范，我是这么理解的 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:beans="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+       	 http://www.springframework.org/schema/security
+         http://www.springframework.org/schema/security/spring-security.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx
+     	 http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 下面是不需要进行认证的资源 -->
+    <!-- 因为要使用自己的权限验证规则，下面是配置一些自定义的Handler -->
+    <security:http>
+        <!--isFullyAuthenticated 该资源需要认证才能访问-->
+        <!-- isAnonymous：只有匿名用户可以访问 -->
+        <!--permitAll 都可以进行访问 -->
+        <security:intercept-url pattern="/" access="permitAll()"/>
+        <security:intercept-url pattern="/login" access="permitAll()"/>
+        <security:intercept-url pattern="/product/add" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/product/update" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/product/delete" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/product/list" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
+        <!--  使用 formLogin进行登录-->
+        <security:form-login login-page="/login" login-processing-url="/userLogin" default-target-url="/"
+                             authentication-success-handler-ref="myAuthenticationSuccessHandler" authentication-failure-handler-ref="myAuthenticationFailureHandler"/>
+        <security:csrf disabled="true"/>
+        <!-- 未授权提示页面 URL-->
+        <security:access-denied-handler error-page="/error"/>
+
+    </security:http>
+    <!-- 认证管理器，使用自定义的UserDetailsService -->
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="myUserDetailsService">
+            <security:password-encoder ref="myPasswordEncoder"/>
+
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean name="myPasswordEncoder"
+          class="top.wycfight.config.MyPasswordEncoder"/>
+    <bean id="myUserDetailsService" class="top.wycfight.config.MyUserDetailsService"/>
+
+    <bean id="myAuthenticationFailureHandler" class="top.wycfight.config.MyAuthenticationFailureHandler"/>
+    <bean id="myAuthenticationSuccessHandler" class="top.wycfight.config.MyAuthenticationSuccessHandler"/>
+
+</beans>

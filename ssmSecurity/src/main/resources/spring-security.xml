@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 下面的一坨是一些XML的一些规范，我是这么理解的 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:beans="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+       	 http://www.springframework.org/schema/security
+         http://www.springframework.org/schema/security/spring-security.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx
+     	 http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 下面是不需要进行认证的资源 -->
+    <!-- 因为要使用自己的权限验证规则，下面是配置一些自定义的Handler -->
+    <security:http>
+        <security:http-basic/>
+
+    </security:http>
+    <!-- 认证管理器，使用自定义的UserDetailsService -->
+    <security:authentication-manager>
+    </security:authentication-manager>
+</beans>
