@@ -11,8 +11,21 @@
     http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 扫描Controller类-->
     <context:component-scan base-package="top.wycfight" />
+
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html; charset=UTF8</value>
+                <value>application/json; charset=utf-8</value>
+            </list>
+        </property>
+    </bean>
     <!-- 注解方式处理映射器和处理适配器-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <ref bean="mappingJacksonHttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -20,5 +33,6 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <!-- 后缀-->
         <property name="suffix" value=".jsp" />
+        <property name="contentType" value="text/html; charset=utf-8" />
     </bean>
 </beans>
