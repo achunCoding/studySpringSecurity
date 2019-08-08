@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.wycfight.entity.UmsAdmin;
+import top.wycfight.entity.UmsPermission;
 import top.wycfight.mapper.UmsAdminMapper;
+import top.wycfight.service.UmsAdminService;
+
+import java.util.List;
 
 /**
  * @author: wycfight@163.com
@@ -18,9 +22,26 @@ public class TestController {
     @Autowired
     private UmsAdminMapper umsAdminMapper;
 
+    @Autowired
+    private UmsAdminService umsAdminService;
+
+    /**
+     * 测试Mapper是否能使用
+     * @return
+     */
     @RequestMapping(value = "/testMapper")
     public String testMapper() {
-        UmsAdmin umsAdmin = umsAdminMapper.selectByPrimaryKey(1L);
+        UmsAdmin umsAdmin = umsAdminService.getAdminByUsername("test");
         return umsAdmin.toString();
+    }
+
+    /**
+     * 测试权限是否能查询到
+     * @return
+     */
+    @RequestMapping(value = "/testPermission")
+    public String testPermission() {
+        List<UmsPermission> permissionList = umsAdminService.getPermissionList(3L);
+        return permissionList.toString();
     }
 }

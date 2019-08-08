@@ -26,11 +26,13 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 别名-->
         <property name="typeAliasesPackage" value="top.wycfight.entity"/>
+        <!--  扫描xml  -->
+        <property name="mapperLocations" value="classpath*:dao/**/*.xml" />
     </bean>
 
     <!-- mybatis 扫描接口整合-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="top.wycfight.mapper"/>
+        <property name="basePackage" value="top.wycfight.mapper,top.wycfight.dao"/>
     </bean>
 
     <!-- 事务配置-->

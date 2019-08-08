@@ -27,7 +27,7 @@
   <context-param><!--全局范围内环境参数初始化-->
     <param-name>contextConfigLocation</param-name><!--参数名称-->
     <param-value>
-      classpath:applicationContext.xml,
+      classpath:spring.xml,
       classpath:spring-security.xml
     </param-value><!--参数取值-->
   </context-param>
