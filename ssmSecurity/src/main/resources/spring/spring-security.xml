@@ -26,7 +26,8 @@
         <security:intercept-url pattern="/product/delete" access="hasAuthority('pms:product:delete')"/>
         <security:intercept-url pattern="/product/list" access="hasAuthority('pms:product:read')"/>
         <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
-        <security:form-login login-page="/login" login-processing-url="/userLogin" default-target-url="/"/>
+        <!-- from login 配置-->
+        <security:form-login login-page="/login" login-processing-url="/userLogin" default-target-url="/" authentication-failure-url="/userLogin?error=true"/>
         <security:csrf disabled="true" />
         <!-- 未授权提示页面 URL-->
         <security:access-denied-handler error-page="/error"/>

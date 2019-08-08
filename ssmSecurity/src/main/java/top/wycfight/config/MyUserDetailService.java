@@ -21,13 +21,15 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Autowired
     private UmsAdminService umsAdminService;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UmsAdmin adminByUsername = umsAdminService.getAdminByUsername(s);
-
-        List<UmsPermission> permissionList = umsAdminService.getPermissionList(adminByUsername.getId());
-
-        return new AdminUserDetails(adminByUsername,permissionList);
+        UmsAdmin umsAdmin = umsAdminService.getAdminByUsername(s);
+        if (umsAdmin != null) {
+            List<UmsPermission> permissionList = umsAdminService.getPermissionList(umsAdmin.getId());
+            return new AdminUserDetails(umsAdmin, permissionList);
+        }
+        throw new UsernameNotFoundException("用户名或者密码错误");
 
 
     }

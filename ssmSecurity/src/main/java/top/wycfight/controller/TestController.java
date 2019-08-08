@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.wycfight.entity.UmsAdmin;
 import top.wycfight.entity.UmsPermission;
-import top.wycfight.mapper.UmsAdminMapper;
 import top.wycfight.service.UmsAdminService;
 
 import java.util.List;
@@ -19,8 +18,6 @@ import java.util.List;
 @RestController
 public class TestController {
 
-    @Autowired
-    private UmsAdminMapper umsAdminMapper;
 
     @Autowired
     private UmsAdminService umsAdminService;
