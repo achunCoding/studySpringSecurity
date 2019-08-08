@@ -23,20 +23,6 @@
   </filter-mapping>
   <!--END 编码过滤器 设置UTF8-->
 
-  <!-- START 配置加载Spring文件的监听器-->
-  <context-param><!--全局范围内环境参数初始化-->
-    <param-name>contextConfigLocation</param-name><!--参数名称-->
-    <param-value>
-      classpath:spring.xml,
-      classpath:spring-security.xml
-    </param-value><!--参数取值-->
-  </context-param>
-
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <!--end 配置加载Spring文件的监听器-->
 
   <!--START 加载SpringMVC配置文件-->
   <servlet>
@@ -44,7 +30,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-mvc.xml</param-value>
+      <param-value>classpath:spring/spring-*.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -53,16 +39,6 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <!--END 加载SpringMVC配置文件-->
-
-  <!--跨域过滤器-->
-  <!--<filter>-->
-  <!--<filter-name>cros</filter-name>-->
-  <!--<filter-class>org.chinaos.filter.HeadersCORSFilter</filter-class>-->
-  <!--</filter>-->
-  <!--<filter-mapping>-->
-  <!--<filter-name>cros</filter-name>-->
-  <!--<url-pattern>/*</url-pattern>-->
-  <!--</filter-mapping>-->
 
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>

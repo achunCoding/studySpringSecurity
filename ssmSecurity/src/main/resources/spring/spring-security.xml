@@ -34,14 +34,13 @@
     </security:http>
     <!-- 认证管理器，使用自定义的UserDetailsService -->
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:password-encoder ref="myPasswordEncoder" />
-            <security:user-service>
-                <security:user name="wyc" password="123456" authorities="ROLE_USER"  />
-            </security:user-service>
+        <security:authentication-provider user-service-ref="myUserDetailService">
+            <security:password-encoder ref="bCryptPasswordEncoder" />
+
         </security:authentication-provider>
     </security:authentication-manager>
 
-    <bean name="myPasswordEncoder"
-          class="top.wycfight.config.MyPasswordEncoder"/>
+    <bean name="bCryptPasswordEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <bean id="myUserDetailService" class="top.wycfight.config.MyUserDetailService" />
 </beans>

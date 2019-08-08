@@ -1,7 +1,5 @@
 package top.wycfight.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.wycfight.dao.UmsAdminRoleRelationDao;
@@ -21,7 +19,6 @@ import java.util.List;
  **/
 @Service
 public class UmsAdminServiceImpl implements UmsAdminService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
 
     @Autowired
     private UmsAdminMapper umsAdminMapper;
