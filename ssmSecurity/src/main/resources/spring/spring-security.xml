@@ -21,13 +21,15 @@
     <security:http>
         <security:intercept-url pattern="/" access="permitAll()"/>
         <security:intercept-url pattern="/login" access="permitAll()"/>
+        <security:intercept-url pattern="/js/**" access="permitAll()"/>
         <security:intercept-url pattern="/product/add" access="hasAuthority('pms:product:create')"/>
         <security:intercept-url pattern="/product/update" access="hasAuthority('pms:product:update')"/>
         <security:intercept-url pattern="/product/delete" access="hasAuthority('pms:product:delete')"/>
         <security:intercept-url pattern="/product/list" access="hasAuthority('pms:product:read')"/>
         <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
         <!-- from login 配置-->
-        <security:form-login login-page="/login" login-processing-url="/userLogin" default-target-url="/" authentication-failure-url="/userLogin?error=true"/>
+        <security:form-login login-page="/login" login-processing-url="/userLogin" default-target-url="/" authentication-success-handler-ref="myAuthenticationSuccessHandler"
+        authentication-failure-handler-ref="myAuthenticationFailureHandler"/>
         <security:csrf disabled="true" />
         <!-- 未授权提示页面 URL-->
         <security:access-denied-handler error-page="/error"/>
@@ -44,4 +46,7 @@
     <bean name="bCryptPasswordEncoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
     <bean id="myUserDetailService" class="top.wycfight.config.MyUserDetailService" />
+
+    <bean id="myAuthenticationSuccessHandler" class="top.wycfight.component.MyAuthenticationSuccessHandler" />
+    <bean id="myAuthenticationFailureHandler" class="top.wycfight.component.MyAuthenticationFailureHandler" />
 </beans>

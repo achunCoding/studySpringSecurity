@@ -1,4 +1,4 @@
-package top.wycfight.config;
+package top.wycfight.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.Authentication;
@@ -23,8 +23,9 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, javax.servlet.http.HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Map<String,Object> result = new HashMap<>(16);
-        result.put("success","true");
+        result.put("success",true);
         String json = objectMapper.writeValueAsString(result);
+        response.setContentType("text/html; charset=utf-8");
         PrintWriter writer = response.getWriter();
         writer.print(json);
 
