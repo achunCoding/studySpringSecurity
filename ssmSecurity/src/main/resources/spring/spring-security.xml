@@ -19,20 +19,26 @@
     <!-- 下面是不需要进行认证的资源 -->
     <!-- 因为要使用自己的权限验证规则，下面是配置一些自定义的Handler -->
     <security:http>
+
+
         <security:intercept-url pattern="/" access="permitAll()"/>
         <security:intercept-url pattern="/login" access="permitAll()"/>
+        <security:intercept-url pattern="/code/image" access="permitAll()"/>
         <security:intercept-url pattern="/js/**" access="permitAll()"/>
         <security:intercept-url pattern="/product/add" access="hasAuthority('pms:product:create')"/>
         <security:intercept-url pattern="/product/update" access="hasAuthority('pms:product:update')"/>
         <security:intercept-url pattern="/product/delete" access="hasAuthority('pms:product:delete')"/>
         <security:intercept-url pattern="/product/list" access="hasAuthority('pms:product:read')"/>
         <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
+        <!-- 自定义拦截器  验证码-->
+        <security:custom-filter ref="validateCodeFilter" before="FORM_LOGIN_FILTER" />
         <!-- from login 配置-->
         <security:form-login login-page="/login" login-processing-url="/userLogin" default-target-url="/" authentication-success-handler-ref="myAuthenticationSuccessHandler"
         authentication-failure-handler-ref="myAuthenticationFailureHandler"/>
         <security:csrf disabled="true" />
         <!-- 未授权提示页面 URL-->
         <security:access-denied-handler error-page="/error"/>
+
 
     </security:http>
     <!-- 认证管理器，使用自定义的UserDetailsService -->
@@ -49,4 +55,7 @@
 
     <bean id="myAuthenticationSuccessHandler" class="top.wycfight.component.MyAuthenticationSuccessHandler" />
     <bean id="myAuthenticationFailureHandler" class="top.wycfight.component.MyAuthenticationFailureHandler" />
+    <bean id="validateCodeFilter" class="top.wycfight.validate.code.ValidateCodeFilter" >
+        <property name="authenticationFailureHandler" ref="myAuthenticationFailureHandler"/>
+    </bean>
 </beans>

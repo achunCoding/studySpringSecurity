@@ -20,6 +20,12 @@
 <form id="loginForm" method="post">
     username:<input type="text" name="username"><br>
     password:<input type="password" name="password"><br>
+    <span style="display: inline">
+        验证码：
+    <input type="text" name="imageCode" placeholder="验证码" />
+    <img src="${pageContext.request.contextPath}/code/image" onclick="this.src='${pageContext.request.contextPath}/code/image?'+Math.random()"/>
+
+</span><br>
     <input type="button" value="login" id="loginBtn">
 </form>
 <script>
