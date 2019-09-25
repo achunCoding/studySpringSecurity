@@ -26,6 +26,7 @@
     <img src="${pageContext.request.contextPath}/code/image" onclick="this.src='${pageContext.request.contextPath}/code/image?'+Math.random()"/>
 
 </span><br>
+    记住我:<input type="checkbox" name="remember-me"><br>
     <input type="button" value="login" id="loginBtn">
 </form>
 <script>
