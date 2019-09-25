@@ -17,7 +17,7 @@
     <security_version>5.1.2.RELEASE</security_version>
     <mybatis_version>3.4.6</mybatis_version>
     <druid_version>1.1.10</druid_version>
-    <jackson_version>2.9.9</jackson_version>
+    <jackson_version>2.9.10</jackson_version>
   </properties>
 
   <dependencies>
